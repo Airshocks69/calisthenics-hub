@@ -17,9 +17,7 @@
         :root {
             --primary: #0066ff;
             --primary-dark: #0052cc;
-            --accent: #ff6b6b;
             --dark: #0a0e27;
-            --dark-2: #1a1f3a;
             --light: #f5f7fa;
             --gray-400: #9ca3af;
             --gray-600: #4b5563;
@@ -62,6 +60,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
         .logo {
@@ -73,17 +72,33 @@
             gap: 0.5rem;
             letter-spacing: -0.5px;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .nav-links {
-            display: none;
+        .nav-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
             gap: 2rem;
-            align-items: center;
+        }
+
+        .nav-center a {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: none;
+        }
+
+        .nav-center a:hover {
+            color: var(--primary);
         }
 
         .nav-cta {
             display: flex;
             gap: 0.75rem;
+            flex-shrink: 0;
         }
 
         .btn-nav {
@@ -96,17 +111,7 @@
             transition: all 0.3s ease;
             font-size: 0.85rem;
             white-space: nowrap;
-        }
-
-        .btn-nav-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 1.5px solid var(--primary);
-        }
-
-        .btn-nav-secondary:hover {
-            background: var(--primary);
-            color: var(--white);
+            display: none;
         }
 
         .btn-nav-primary {
@@ -114,18 +119,93 @@
             color: var(--white);
         }
 
+        .btn-nav-primary:active {
+            transform: scale(0.95);
+        }
+
         .btn-nav-primary:hover {
             background: var(--primary-dark);
         }
 
-        /* Mobile Menu Toggle */
+        /* Hamburger Menu */
         .menu-toggle {
-            display: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
             background: none;
             border: none;
-            font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
+            margin-right: -0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 99;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
             color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a:active {
+            color: var(--primary);
+        }
+
+        .mobile-cta {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+
+        .mobile-cta .btn-nav {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 0.8rem 1.2rem;
         }
 
         /* Hero Section */
@@ -320,10 +400,6 @@
             font-size: 1.5rem;
             font-weight: 800;
             margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
         }
 
         .stat-item p {
@@ -429,9 +505,6 @@
             font-size: 1rem;
             margin-bottom: 1.5rem;
             opacity: 0.95;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         /* Footer */
@@ -479,6 +552,30 @@
         @media (min-width: 640px) {
             .container {
                 padding: 0 2rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .nav-center {
+                display: flex;
+            }
+
+            .nav-center a {
+                display: block;
+            }
+
+            .btn-nav {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: none !important;
             }
 
             .hero h1 {
@@ -532,10 +629,6 @@
 
         /* Desktop */
         @media (min-width: 1024px) {
-            .container {
-                padding: 0 2rem;
-            }
-
             .hero {
                 padding: 6rem 0 8rem;
             }
@@ -588,14 +681,6 @@
                 gap: 2rem;
             }
 
-            .nav-links {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
             .hero::before {
                 width: 600px;
                 height: 600px;
@@ -634,13 +719,6 @@
         .hero-content {
             animation: fadeInUp 0.8s ease-out;
         }
-
-        /* Touch-friendly targets */
-        button, a {
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-        }
     </style>
 </head>
 <body>
@@ -649,17 +727,33 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    🏋️ CalisthenicsHub
+                    🏋️ CH
                 </div>
-                <div class="nav-links">
+                <div class="nav-center">
                     <a href="#features">Features</a>
                     <a href="#exercises">Übungen</a>
                     <a href="#testimonials">Stories</a>
                 </div>
                 <div class="nav-cta">
-                    <a href="#" class="btn-nav btn-nav-secondary">Login</a>
-                    <a href="#" class="btn-nav btn-nav-primary">Testen</a>
+                    <button class="btn-nav btn-nav-primary">Testen</button>
                 </div>
+                <button class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="#features">Features</a>
+            <a href="#exercises">Übungen</a>
+            <a href="#testimonials">Erfolgsgeschichten</a>
+            <a href="#">Über uns</a>
+            <div class="mobile-cta">
+                <button class="btn-nav" style="background: transparent; color: var(--primary); border: 1.5px solid var(--primary); width: 100%;">Login</button>
+                <button class="btn-nav btn-nav-primary">Kostenlos testen</button>
             </div>
         </div>
     </nav>
@@ -725,15 +819,15 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <h3>12,000+ 🌟</h3>
+                    <h3>12,000+</h3>
                     <p>Aktive Athleten</p>
                 </div>
                 <div class="stat-item">
-                    <h3>150+ 📚</h3>
+                    <h3>150+</h3>
                     <p>Programme</p>
                 </div>
                 <div class="stat-item">
-                    <h3>500+ 🏆</h3>
+                    <h3>500+</h3>
                     <p>Erfolgsgeschichten</p>
                 </div>
             </div>
@@ -838,5 +932,31 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when scrolling
+        window.addEventListener('scroll', () => {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
